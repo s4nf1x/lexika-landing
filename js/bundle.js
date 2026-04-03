@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const mobileMenuButton = document.querySelector('.mobile-menu-button');
   const closeMenuButton = document.querySelector('.close-menu-button');
   const headerNav = document.querySelector('.header-nav');
+  const scrollButton = document.querySelector('.btn-scroll-mobile');
 
   function isMobileView() {
     return window.innerWidth <= 1024;
@@ -83,6 +84,28 @@ document.addEventListener('DOMContentLoaded', function() {
   function closeMenu() {
     headerNav.classList.remove('show');
     document.body.style.overflow = '';
+  }
+
+  function scrollToAnchor(anchor) {
+    if (!anchor) return;
+
+    const targetElement = document.querySelector(anchor);
+    if (targetElement) {
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+
+  if (scrollButton) {
+    scrollButton.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      if (isMobileView()) {
+        closeMenu();
+      }
+    });
   }
 
   mobileMenuButton.addEventListener('click', openMenu);
@@ -102,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
       closeMenu();
     }
   });
-
 });
 
 function checkVisibility() {
